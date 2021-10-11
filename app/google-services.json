@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "225910797220",
+    "project_id": "mobilprog-bc353",
+    "storage_bucket": "mobilprog-bc353.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225910797220:android:83162039059fbb7f3fc731",
+        "android_client_info": {
+          "package_name": "com.example.beadand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225910797220-b51ftnhunnu5bdurtsc4nl7574oqtu91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuSi0UVx9pYh28318mRhds3vS2moiH5Wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225910797220-b51ftnhunnu5bdurtsc4nl7574oqtu91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
