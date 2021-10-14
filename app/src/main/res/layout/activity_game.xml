@@ -1,30 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:textAlignment="viewStart"
+    android:textDirection="firstStrongRtl"
     tools:context=".GameActivity">
 
-    <LinearLayout
-        android:id="@+id/GameLayout"
+    <Button
+        android:id="@+id/BackButton_game"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:text="Vissza" />
 
-        <Button
-            android:id="@+id/BackButton_game"
+    <Button
+        android:id="@+id/Continue_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Folytatás"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vissza" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/Continue_Button"
+            <TextView
+                android:id="@+id/player1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/player2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/player3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Folytatás"
-            android:visibility="gone" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/player4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/player5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/player6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#170808"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Button"
+            android:textColor="#F4F0F0"
+            android:visibility="invisible"
+            app:iconPadding="0dp"
+            app:iconTint="#CFB5B5"
+            app:strokeColor="#F67272"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F6F3F3"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Button"
+            android:textColor="#120707"
+            android:visibility="invisible"
+            app:cornerRadius="1dp"
+            app:iconPadding="0dp"
+            app:rippleColor="#420505"
+            app:strokeColor="#230707"
+            app:strokeWidth="2dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F6F3F3"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Button"
+            android:textColor="#120707"
+            android:visibility="invisible"
+            app:iconPadding="0dp"
+            app:rippleColor="#420505"
+            app:strokeColor="#1B0505"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F6F3F3"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Button"
+            android:textColor="#120707"
+            android:visibility="invisible"
+            app:iconPadding="0dp"
+            app:rippleColor="#420505"
+            app:strokeColor="#1B0505"
+            app:strokeWidth="2dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F6F3F3"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Button"
+            android:textColor="#120707"
+            android:visibility="invisible"
+            app:iconPadding="0dp"
+            app:rippleColor="#420505"
+            app:strokeColor="#1B0505"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F6F3F3"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Button"
+            android:textColor="#120707"
+            android:visibility="invisible"
+            app:iconPadding="0dp"
+            app:rippleColor="#420505"
+            app:strokeColor="#1B0505"
+            app:strokeWidth="2dp" />
+    </LinearLayout>
+
+</LinearLayout>

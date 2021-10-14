@@ -47,16 +47,28 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         final Button ContinueButton = findViewById(R.id.Continue_Button);
-
+        Button blackbutton = findViewById(R.id.button1);
+        Button w1button = findViewById(R.id.button2);
+        Button w2button = findViewById(R.id.button3);
+        Button w3button = findViewById(R.id.button4);
+        Button w4button = findViewById(R.id.button5);
+        Button w5button = findViewById(R.id.button6);
+        TextView p1 = findViewById(R.id.player1);
+        TextView p2 = findViewById(R.id.player2);
+        TextView p3 = findViewById(R.id.player3);
+        TextView p4 = findViewById(R.id.player4);
+        TextView p5 = findViewById(R.id.player5);
+        TextView p6 = findViewById(R.id.player6);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final String GameId= getIntent().getStringExtra("GAME_ID");
         final int PlayerId = getIntent().getIntExtra("PLAYER_ID",0);
         final int[] PlayerNumbers = {0};
         final Random r = new Random();
+        TextView[] playertexts = {p1,p2,p3,p4,p5,p6};
+        Button[] buttons = {w1button,w2button,w3button,w4button,w5button};
 
         final boolean[] OpenedDialog = {false};
         final int[][] PlayerTextViewIds = new int[1][1];
-
         final List<Integer> SelectedCardsQue = new ArrayList<Integer>();
 
         /** Vissza gomb -> Szoba választás **/
@@ -100,17 +112,8 @@ public class GameActivity extends AppCompatActivity {
                             PlayerTextViewIds[0][i - 1] = r.nextInt(100000);
 
                             Map<String, Object> Player = (Map<String, Object>) Players.get(Integer.toString(i));
-                            TextView myText = new TextView(GameActivity.this);
-                            myText.setText(Player.get("PlayerName").toString() + ": " + Player.get("PlayerScore"));
-                            myText.setId(PlayerTextViewIds[0][i - 1]);
-
-                            myText.setTextSize(18);
-                            myText.setTextColor(Color.rgb(175,173, 73));
-
-                            LinearLayout layout = findViewById(R.id.GameLayout);
-                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            layout.addView(myText, lp);
-                            PlayerTextViewIds[0][i - 1] = myText.getId();
+                            playertexts[i].setText(Player.get("PlayerName").toString() + ": " + Player.get("PlayerScore"));
+                            PlayerTextViewIds[0][i - 1] = playertexts[i].getId();
                         }
                     }
 
@@ -149,23 +152,53 @@ public class GameActivity extends AppCompatActivity {
                                                                         if (task.isSuccessful()) {
                                                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                                                 if (TurnerPlayer) {
-
-                                                                                    /** Felugró ablak a többi játékos által választott lapokkal **/
-                                                                                    new AlertDialog.Builder(GameActivity.this).setTitle(document.getString("element"))
-                                                                                            .setSingleChoiceItems(SelectedWhiteCards.toArray(new String[0]), 0, null)
-                                                                                            .setPositiveButton("Kiválaszt", new DialogInterface.OnClickListener() {
-                                                                                                @Override
-                                                                                                public void onClick(DialogInterface dialog, int id) {
-                                                                                                    dialog.dismiss();
-                                                                                                    int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                                                                                                    Map<String, Object> Temporary = new HashMap<>();
-                                                                                                    Map<String, Object> Player = (Map<String, Object>) Players.get(Integer.toString(SelectedCardsQue.get(selectedPosition)));
-                                                                                                    Temporary.put("Players." + Integer.toString(SelectedCardsQue.get(selectedPosition)) + ".PlayerScore", ((long) Player.get("PlayerScore") + 1));
-                                                                                                    Temporary.put("isTurnEnded", false);
-                                                                                                    docRef.update(Temporary);
-                                                                                                }
-                                                                                            })
-                                                                                            .show();
+                                                                                    blackbutton.setText(document.getString("element"));
+                                                                                    blackbutton.setVisibility(View.VISIBLE);
+                                                                                    for(int i = 0; i<PlayerNumbers[0]-2;i++)
+                                                                                    {
+                                                                                        buttons[i].setText(SelectedWhiteCards.get(i));
+                                                                                        buttons[i].setVisibility(View.VISIBLE);
+                                                                                    }
+                                                                                    w1button.setOnClickListener(new View.OnClickListener(){
+                                                                                        @Override
+                                                                                        public void onClick(View v) {
+                                                                                            CzarButton(0, Players, SelectedCardsQue, docRef);
+                                                                                            hideButtons(buttons);
+                                                                                            blackbutton.setVisibility(View.GONE);
+                                                                                        }
+                                                                                    });
+                                                                                    w2button.setOnClickListener(new View.OnClickListener(){
+                                                                                        @Override
+                                                                                        public void onClick(View v) {
+                                                                                            CzarButton(1, Players, SelectedCardsQue, docRef);
+                                                                                            hideButtons(buttons);
+                                                                                            blackbutton.setVisibility(View.GONE);
+                                                                                        }
+                                                                                    });
+                                                                                    w3button.setOnClickListener(new View.OnClickListener(){
+                                                                                        @Override
+                                                                                        public void onClick(View v) {
+                                                                                            CzarButton(2, Players, SelectedCardsQue, docRef);
+                                                                                            hideButtons(buttons);
+                                                                                            blackbutton.setVisibility(View.GONE);
+                                                                                        }
+                                                                                    });
+                                                                                    w4button.setOnClickListener(new View.OnClickListener(){
+                                                                                        @Override
+                                                                                        public void onClick(View v) {
+                                                                                            CzarButton(3, Players, SelectedCardsQue, docRef);
+                                                                                            hideButtons(buttons);
+                                                                                            blackbutton.setVisibility(View.GONE);
+                                                                                        }
+                                                                                    });
+                                                                                    w5button.setOnClickListener(new View.OnClickListener(){
+                                                                                        @Override
+                                                                                        public void onClick(View v) {
+                                                                                            CzarButton(4, Players, SelectedCardsQue, docRef);
+                                                                                            hideButtons(buttons);
+                                                                                            blackbutton.setVisibility(View.GONE);
+                                                                                        }
+                                                                                    });
                                                                                 }
                                                                             }
                                                                         } else {
@@ -236,21 +269,55 @@ public class GameActivity extends AppCompatActivity {
                                                                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                                                                         String[] s = PlayerWhiteCards.toArray(new String[0]);
                                                                                         int checkedItem = 0;
-                                                                                        new AlertDialog.Builder(GameActivity.this).setTitle(document.getString("element"))
-                                                                                                .setSingleChoiceItems(s, checkedItem, null)
-                                                                                                .setCancelable(false)
-                                                                                                .setPositiveButton("Kiválasztás", new DialogInterface.OnClickListener() {
-                                                                                                    @Override
-                                                                                                    public void onClick(DialogInterface dialog, int id) {
-                                                                                                        dialog.dismiss();
-                                                                                                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
-                                                                                                        docRef.update("Players." + Integer.toString(PlayerId) + ".SelectedCard", SelectedCardsQue.get(selectedPosition));
-                                                                                                    }
-                                                                                                })
-                                                                                                .show();
-                                                                                        Log.d("alert", "Alert dialog check"+ Integer.toString(PlayerId));
+                                                                                        blackbutton.setText(document.getString("element"));
+                                                                                        blackbutton.setVisibility(View.VISIBLE);
+                                                                                        for(int i = 0; i<5;i++)
+                                                                                        {
+                                                                                            buttons[i].setText(s[i]);
+                                                                                            buttons[i].setVisibility(View.VISIBLE);
+                                                                                        }
+                                                                                        w1button.setOnClickListener(new View.OnClickListener(){
+                                                                                            @Override
+                                                                                            public void onClick(View v) {
+                                                                                                SelectPlayCard(0, PlayerId, SelectedCardsQue, docRef);
+                                                                                                hideButtons(buttons);
+                                                                                                blackbutton.setVisibility(View.GONE);
+                                                                                            }
+                                                                                        });
+                                                                                        w2button.setOnClickListener(new View.OnClickListener(){
+                                                                                            @Override
+                                                                                            public void onClick(View v) {
+                                                                                                SelectPlayCard(1, PlayerId, SelectedCardsQue, docRef);
+                                                                                                hideButtons(buttons);
+                                                                                                blackbutton.setVisibility(View.GONE);
+                                                                                            }
+                                                                                        });
+                                                                                        w3button.setOnClickListener(new View.OnClickListener(){
+                                                                                            @Override
+                                                                                            public void onClick(View v) {
+                                                                                                SelectPlayCard(2, PlayerId, SelectedCardsQue, docRef);
+                                                                                                hideButtons(buttons);
+                                                                                                blackbutton.setVisibility(View.GONE);
+                                                                                            }
+                                                                                        });
+                                                                                        w4button.setOnClickListener(new View.OnClickListener(){
+                                                                                            @Override
+                                                                                            public void onClick(View v) {
+                                                                                                SelectPlayCard(3, PlayerId, SelectedCardsQue, docRef);
+                                                                                                hideButtons(buttons);
+                                                                                                blackbutton.setVisibility(View.GONE);
+                                                                                            }
+                                                                                        });
+                                                                                        w5button.setOnClickListener(new View.OnClickListener(){
+                                                                                            @Override
+                                                                                            public void onClick(View v) {
+                                                                                                SelectPlayCard(4, PlayerId, SelectedCardsQue, docRef);
+                                                                                                hideButtons(buttons);
+                                                                                                blackbutton.setVisibility(View.GONE);
+                                                                                            }
+                                                                                        });
+
                                                                                     }
-                                                                                    Log.d("alert", "Task success");
                                                                                 } else {
                                                                                     new AlertDialog.Builder(GameActivity.this).setMessage("Valami hiba történt!")
                                                                                             .setPositiveButton("OK", null)
@@ -342,21 +409,27 @@ public class GameActivity extends AppCompatActivity {
                                                             }
                                                             docRef.update(Temporary);
                                                         }
-                                                        List<Integer> AddedCards = new ArrayList<Integer>();
+                                                        //List<Integer> AddedCards = new ArrayList<Integer>();
 
                                                         for (int i = 0; i < PlayerNumbers[0] - 1; i++) {
                                                             Integer[] Cards = { 0,0,0,0,0 };
                                                             for (int y=0;y<5;y++) {
                                                                 int iCard_w = r.nextInt(maximum_w) + 1;
-                                                                if (!AddedCards.contains(iCard_w)) {
-                                                                    AddedCards.add(iCard_w);
+                                                                if (y==0) {
                                                                     Cards[y] = iCard_w;
-                                                                    if (y == 4) {
+                                                                }else
+                                                                {
+                                                                    if(!Arrays.asList(Cards).contains(iCard_w))
+                                                                    {
+                                                                        Cards[y] = iCard_w;
+                                                                    }else {
+                                                                        y--;
+                                                                    }
+                                                                }
+                                                                if (y == 4)
+                                                                {
                                                                        docRef.update("Players." + Integer.toString(i + 1) + ".Cards", Arrays.asList(Cards));
                                                                         Log.d("cards", Arrays.asList(Cards).toString());
-                                                                    }
-                                                                } else {
-                                                                    y--;
                                                                 }
                                                             }
                                                         }
@@ -391,68 +464,6 @@ public class GameActivity extends AppCompatActivity {
         });
 
     }
-
-        /*ContinueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-                docRef.get(Source.SERVER).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            final Long NextPlayer = document.getLong("TurnPlayer")+1;
-
-
-                            db.collection("BlackCards").orderBy("numb", Query.Direction.DESCENDING).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            int maximum_b = Integer.parseInt(document.get("numb").toString());
-                                            int iCard = r.nextInt(maximum_b) + 1;
-                                            Map<String,Object> Temporary =  new HashMap<>();
-                                            if(NextPlayer>=PlayerNumbers[0])
-                                            {
-                                                Temporary.put("TurnPlayer",1);
-                                            }
-                                            else
-                                            {
-                                                Temporary.put("TurnPlayer",NextPlayer);
-                                            }
-                                            Temporary.put("isContinued",true);
-                                            Temporary.put("BlackCard",iCard);
-                                            for(int i=0;i<PlayerNumbers[0];i++)
-                                            {
-                                                Temporary.put("Players."+Integer.toString(i)+".SelectedCard",0);
-                                            }
-                                            docRef.update(Temporary);
-                                        } }else {
-                                        new AlertDialog.Builder(GameActivity.this).setMessage("Valami hiba történt, ellenőrizd az internetkapcsolatot!")
-                                                .setPositiveButton("OK", null)
-                                                .show();
-                                    }
-                                }
-                            });
-
-                        }
-                        else {
-                            new AlertDialog.Builder(GameActivity.this).setMessage("Valami hiba történt!")
-                                    .setPositiveButton("OK", null)
-                                    .show();
-                        }
-                    }
-                });
-
-                ContinueButton.setVisibility(View.GONE);
-
-            }
-        });
-
-    }*/
-
     @Override
     public void onBackPressed() {
 /*        final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -469,4 +480,23 @@ public class GameActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    public void CzarButton(int selectedPosition, Map<String, Object> Players, List<Integer> SelectedCardsQue, DocumentReference docRef){
+        Map<String, Object> Temporary = new HashMap<>();
+        Map<String, Object> Player = (Map<String, Object>) Players.get(Integer.toString(SelectedCardsQue.get(selectedPosition)));
+        Temporary.put("Players." + Integer.toString(SelectedCardsQue.get(selectedPosition)) + ".PlayerScore", ((long) Player.get("PlayerScore") + 1));
+        Temporary.put("isTurnEnded", false);
+        docRef.update(Temporary);
+    }
+    public void SelectPlayCard(int SelectedPosition, int PlayerId, List<Integer> SelectedCardsQue, DocumentReference docRef)
+    {
+        int selectedPosition = SelectedPosition;
+        docRef.update("Players." + Integer.toString(PlayerId) + ".SelectedCard", SelectedCardsQue.get(selectedPosition));
+    }
+    public void hideButtons(Button[] buttons)
+    {
+        for(int i = 0; i<buttons.length;i++)
+        {
+            buttons[i].setVisibility(View.INVISIBLE);
+        }
+    }
 }
